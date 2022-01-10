@@ -7,6 +7,7 @@ public class MyApplication {
     public static void main(String[] args) {
         StoreService storeService = new StoreServiceImpl();
 
+
         storeService.start();
     }
 }

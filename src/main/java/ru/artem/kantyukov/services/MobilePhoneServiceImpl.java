@@ -1,34 +1,38 @@
 package ru.artem.kantyukov.services;
 
-import ru.artem.kantyukov.domain.MobilePhones;
+import lombok.RequiredArgsConstructor;
+import ru.artem.kantyukov.domain.MobilePhone;
 
 import java.util.List;
 
-public class MobilePhoneServiceImpl implements MobilePhoneService {
-    private final List<MobilePhones> listOfPhoneInStore;
 
-    public MobilePhoneServiceImpl(List<MobilePhones> listOfPhoneInStore) {
+
+public class MobilePhoneServiceImpl implements MobilePhoneService {
+    private final List<MobilePhone> listOfPhoneInStore;
+
+    public MobilePhoneServiceImpl(List<MobilePhone> listOfPhoneInStore) {
         this.listOfPhoneInStore = listOfPhoneInStore;
     }
 
 
     @Override
-    public MobilePhones takePhoneByName(String name) {
-        MobilePhones resPhone = null;
+    public MobilePhone takePhoneByName(String name) {
+        MobilePhone resPhone = null;
 
-        for (MobilePhones phones : listOfPhoneInStore)
+        for (MobilePhone phones : listOfPhoneInStore) {
             if (phones.getModel().equals(name)) {
                 resPhone = phones;
             }
-        if (resPhone != null) {
-            listOfPhoneInStore.remove(resPhone);
-            return resPhone;
+            if (resPhone != null) {
+                listOfPhoneInStore.remove(resPhone);
+                return resPhone;
+            }
         }
-        return null;
+        throw new PhoneNotFoundException("Не нашли телефон с именем: " +name);
     }
 
     @Override
-    public void putPhone(MobilePhones phones) {
+    public void putPhone(MobilePhone phones) {
         listOfPhoneInStore.add(phones);
 
 
@@ -36,7 +40,7 @@ public class MobilePhoneServiceImpl implements MobilePhoneService {
 
     @Override
     public boolean hasPhone(String name) {
-        for (MobilePhones phones : listOfPhoneInStore) {
+        for (MobilePhone phones : listOfPhoneInStore) {
             if (phones.getModel().equals(name)) {
                 return true;
             }
@@ -46,8 +50,8 @@ public class MobilePhoneServiceImpl implements MobilePhoneService {
 
     @Override
     public void printPhone() {
-        for (MobilePhones mobilePhones : listOfPhoneInStore) {
-            System.out.println("Телефон: " + mobilePhones.getModel()+ " " +mobilePhones.getCompany()+ " " +mobilePhones.getPrice()+ "рублей");
+        for (MobilePhone mobilePhones : listOfPhoneInStore) {
+            System.out.println("Телефон: " + mobilePhones.getModel() + " " + mobilePhones.getCompany() + " " + mobilePhones.getPrice() + "рублей");
         }
     }
 }

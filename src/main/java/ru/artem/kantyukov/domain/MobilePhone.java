@@ -5,11 +5,10 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-public class MobilePhones {
+public class MobilePhone {
     private final String model;
     private final String company;
     private final int price;
-
 
 
 }

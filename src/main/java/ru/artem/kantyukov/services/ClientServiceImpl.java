@@ -2,7 +2,7 @@ package ru.artem.kantyukov.services;
 
 import lombok.RequiredArgsConstructor;
 import ru.artem.kantyukov.domain.Client;
-import ru.artem.kantyukov.domain.MobilePhones;
+import ru.artem.kantyukov.domain.MobilePhone;
 
 import java.util.Scanner;
 
@@ -14,18 +14,16 @@ public class ClientServiceImpl implements ClientService {
     private final MobilePhoneService mobilePhoneService;
 
 
-
-
     @Override
     public void buyPhone() {
         System.out.println("Выберете модель телефона");
         String model = scanner.next();
-        if (mobilePhoneService.hasPhone(model)){
+        if (mobilePhoneService.hasPhone(model)) {
             System.out.println("Продолжите покупку телефона");
             mobilePhoneService.takePhoneByName(model);
             System.out.println("Купили телефон = " + model);
             System.out.println("Поздравляем, вы купили нввый телефон");
-        }else {
+        } else {
             System.out.println("Очень жаль. Но требуемые телефоны закончились. Вы можете выбрать другой");
         }
 
@@ -43,7 +41,7 @@ public class ClientServiceImpl implements ClientService {
         System.out.println("Выберете название цену");
         int price = scanner.nextInt();
 
-        MobilePhones mobilePhones = new MobilePhones(model, company, price);
+        MobilePhone mobilePhones = new MobilePhone(model, company, price);
         mobilePhoneService.putPhone(mobilePhones);
 
     }
